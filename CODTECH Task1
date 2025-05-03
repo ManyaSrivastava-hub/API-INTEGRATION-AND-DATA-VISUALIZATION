@@ -1,0 +1,41 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime, timedelta
+forecast_data = [
+    {"dt": 1714708800 + 10800 * i, "main": {"temp": 30 + i % 5, "humidity": 60 + (i % 3) * 5}} for i in range(16)
+]
+
+dates = []
+temperatures = []
+humidities = []
+
+for entry in forecast_data:
+    dt = datetime.fromtimestamp(entry['dt'])
+    temp = entry['main']['temp']
+    humidity = entry['main']['humidity']
+    
+    dates.append(dt)
+    temperatures.append(temp)
+    humidities.append(humidity)
+
+sns.set(style="whitegrid")
+
+plt.figure(figsize=(10, 5))
+plt.plot(dates, temperatures, label='Temperature (°C)', color='tomato', marker='o')
+plt.title("Simulated 5-Day Temperature Forecast")
+plt.xlabel("Date & Time")
+plt.ylabel("Temperature (°C)")
+plt.xticks(rotation=45)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(10, 5))
+sns.lineplot(x=dates, y=humidities, label='Humidity (%)', color='skyblue', marker='o')
+plt.title("Simulated 5-Day Humidity Forecast")
+plt.xlabel("Date & Time")
+plt.ylabel("Humidity (%)")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
